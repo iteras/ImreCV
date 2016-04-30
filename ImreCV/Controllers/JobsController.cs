@@ -7,19 +7,21 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DAL;
+using DAL.Interfaces;
+using DAL.Repositories;
 using Domain;
 
 namespace ImreCV.Controllers
 {
     public class JobsController : Controller
     {
-        private DataBaseContext db = new DataBaseContext();
-
+        //private DataBaseContext db = new DataBaseContext();
+        private readonly IJobRepository _jobRepository = new JobRepository(new DataBaseContext());
         // GET: Jobs
         public ActionResult Index()
         {
-            var jobs = db.Jobs.Include(j => j.Person);
-            return View(jobs.ToList());
+            //var jobs = db.Jobs.Include(j => j.Person);
+            return View(_jobRepository.All);
         }
 
         // GET: Jobs/Details/5
@@ -29,7 +31,7 @@ namespace ImreCV.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Job job = db.Jobs.Find(id);
+            Job job = _jobRepository.GetById(id);
             if (job == null)
             {
                 return HttpNotFound();
@@ -40,7 +42,7 @@ namespace ImreCV.Controllers
         // GET: Jobs/Create
         public ActionResult Create()
         {
-            ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname");
+            //ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname");
             return View();
         }
 
@@ -53,12 +55,12 @@ namespace ImreCV.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Jobs.Add(job);
-                db.SaveChanges();
+                _jobRepository.Add(job);
+                _jobRepository.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", job.PersonId);
+           // ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", job.PersonId);
             return View(job);
         }
 
@@ -69,12 +71,12 @@ namespace ImreCV.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Job job = db.Jobs.Find(id);
+            Job job = _jobRepository.GetById(id);
             if (job == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", job.PersonId);
+            //ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", job.PersonId);
             return View(job);
         }
 
@@ -87,11 +89,11 @@ namespace ImreCV.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(job).State = EntityState.Modified;
-                db.SaveChanges();
+                _jobRepository.Update(job);
+                _jobRepository.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", job.PersonId);
+            //ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", job.PersonId);
             return View(job);
         }
 
@@ -102,7 +104,7 @@ namespace ImreCV.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Job job = db.Jobs.Find(id);
+            Job job = _jobRepository.GetById(id);
             if (job == null)
             {
                 return HttpNotFound();
@@ -115,9 +117,9 @@ namespace ImreCV.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Job job = db.Jobs.Find(id);
-            db.Jobs.Remove(job);
-            db.SaveChanges();
+            Job job = _jobRepository.GetById(id);
+            _jobRepository.Delete(job);
+            _jobRepository.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -125,7 +127,7 @@ namespace ImreCV.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _jobRepository.Dispose();
             }
             base.Dispose(disposing);
         }

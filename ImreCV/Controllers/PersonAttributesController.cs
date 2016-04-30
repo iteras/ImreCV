@@ -7,19 +7,21 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DAL;
+using DAL.Interfaces;
+using DAL.Repositories;
 using Domain;
 
 namespace ImreCV.Controllers
 {
     public class PersonAttributesController : Controller
     {
-        private DataBaseContext db = new DataBaseContext();
-
+        //private DataBaseContext db = new DataBaseContext();
+        private readonly IPersonAttributeRepository _personAttributeRepository = new PersonAttributeRepository(new DataBaseContext());
         // GET: PersonAttributes
         public ActionResult Index()
         {
-            var personAttributes = db.PersonAttributes.Include(p => p.Person);
-            return View(personAttributes.ToList());
+            //var personAttributes = db.PersonAttributes.Include(p => p.Person);
+            return View(_personAttributeRepository.All);
         }
 
         // GET: PersonAttributes/Details/5
@@ -29,7 +31,7 @@ namespace ImreCV.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PersonAttribute personAttribute = db.PersonAttributes.Find(id);
+            PersonAttribute personAttribute = _personAttributeRepository.GetById(id);
             if (personAttribute == null)
             {
                 return HttpNotFound();
@@ -40,7 +42,7 @@ namespace ImreCV.Controllers
         // GET: PersonAttributes/Create
         public ActionResult Create()
         {
-            ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname");
+            //ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname");
             return View();
         }
 
@@ -53,12 +55,12 @@ namespace ImreCV.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.PersonAttributes.Add(personAttribute);
-                db.SaveChanges();
+                _personAttributeRepository.Add(personAttribute);
+                _personAttributeRepository.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", personAttribute.PersonId);
+            //ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", personAttribute.PersonId);
             return View(personAttribute);
         }
 
@@ -69,12 +71,12 @@ namespace ImreCV.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PersonAttribute personAttribute = db.PersonAttributes.Find(id);
+            PersonAttribute personAttribute = _personAttributeRepository.GetById(id);
             if (personAttribute == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", personAttribute.PersonId);
+            //ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", personAttribute.PersonId);
             return View(personAttribute);
         }
 
@@ -87,11 +89,11 @@ namespace ImreCV.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(personAttribute).State = EntityState.Modified;
-                db.SaveChanges();
+                _personAttributeRepository.Update(personAttribute);
+                _personAttributeRepository.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", personAttribute.PersonId);
+            //ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", personAttribute.PersonId);
             return View(personAttribute);
         }
 
@@ -102,7 +104,7 @@ namespace ImreCV.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PersonAttribute personAttribute = db.PersonAttributes.Find(id);
+            PersonAttribute personAttribute = _personAttributeRepository.GetById(id);
             if (personAttribute == null)
             {
                 return HttpNotFound();
@@ -115,9 +117,9 @@ namespace ImreCV.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            PersonAttribute personAttribute = db.PersonAttributes.Find(id);
-            db.PersonAttributes.Remove(personAttribute);
-            db.SaveChanges();
+            PersonAttribute personAttribute = _personAttributeRepository.GetById(id);
+            _personAttributeRepository.Delete(personAttribute);
+            _personAttributeRepository.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -125,7 +127,7 @@ namespace ImreCV.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _personAttributeRepository.Dispose();
             }
             base.Dispose(disposing);
         }

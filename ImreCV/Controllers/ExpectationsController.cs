@@ -7,19 +7,21 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DAL;
+using DAL.Interfaces;
+using DAL.Repositories;
 using Domain;
 
 namespace ImreCV.Controllers
 {
     public class ExpectationsController : Controller
     {
-        private DataBaseContext db = new DataBaseContext();
-
+        //private DataBaseContext db = new DataBaseContext();
+        private readonly IExpectationRepository _expectationRepository = new ExpectationRepository(new DataBaseContext());
         // GET: Expectations
         public ActionResult Index()
         {
-            var expectations = db.Expectations.Include(e => e.Person);
-            return View(expectations.ToList());
+           // var expectations = db.Expectations.Include(e => e.Person);
+            return View(_expectationRepository.All);
         }
 
         // GET: Expectations/Details/5
@@ -29,7 +31,7 @@ namespace ImreCV.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Expectation expectation = db.Expectations.Find(id);
+            Expectation expectation = _expectationRepository.GetById(id);
             if (expectation == null)
             {
                 return HttpNotFound();
@@ -40,7 +42,7 @@ namespace ImreCV.Controllers
         // GET: Expectations/Create
         public ActionResult Create()
         {
-            ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname");
+            //ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname");
             return View();
         }
 
@@ -53,12 +55,12 @@ namespace ImreCV.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Expectations.Add(expectation);
-                db.SaveChanges();
+                _expectationRepository.Add(expectation);
+                _expectationRepository.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", expectation.PersonId);
+           // ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", expectation.PersonId);
             return View(expectation);
         }
 
@@ -69,12 +71,12 @@ namespace ImreCV.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Expectation expectation = db.Expectations.Find(id);
+            Expectation expectation = _expectationRepository.GetById(id);
             if (expectation == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", expectation.PersonId);
+            //ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", expectation.PersonId);
             return View(expectation);
         }
 
@@ -87,11 +89,11 @@ namespace ImreCV.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(expectation).State = EntityState.Modified;
-                db.SaveChanges();
+                _expectationRepository.Update(expectation);
+                _expectationRepository.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", expectation.PersonId);
+            //ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", expectation.PersonId);
             return View(expectation);
         }
 
@@ -102,7 +104,7 @@ namespace ImreCV.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Expectation expectation = db.Expectations.Find(id);
+            Expectation expectation = _expectationRepository.GetById(id);
             if (expectation == null)
             {
                 return HttpNotFound();
@@ -115,9 +117,9 @@ namespace ImreCV.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Expectation expectation = db.Expectations.Find(id);
-            db.Expectations.Remove(expectation);
-            db.SaveChanges();
+            Expectation expectation = _expectationRepository.GetById(id);
+            _expectationRepository.Delete(expectation);
+            _expectationRepository.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -125,7 +127,7 @@ namespace ImreCV.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _expectationRepository.Dispose();
             }
             base.Dispose(disposing);
         }

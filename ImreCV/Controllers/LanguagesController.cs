@@ -7,19 +7,21 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DAL;
+using DAL.Interfaces;
+using DAL.Repositories;
 using Domain;
 
 namespace ImreCV.Controllers
 {
     public class LanguagesController : Controller
     {
-        private DataBaseContext db = new DataBaseContext();
-
+        //private DataBaseContext db = new DataBaseContext();
+        private readonly ILanguageRepository _languageRepository = new LanguageRepository(new DataBaseContext());
         // GET: Languages
         public ActionResult Index()
         {
-            var languages = db.Languages.Include(l => l.Person);
-            return View(languages.ToList());
+            //var languages = db.Languages.Include(l => l.Person);
+            return View(_languageRepository.All);
         }
 
         // GET: Languages/Details/5
@@ -29,7 +31,7 @@ namespace ImreCV.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Language language = db.Languages.Find(id);
+            Language language = _languageRepository.GetById(id);
             if (language == null)
             {
                 return HttpNotFound();
@@ -40,7 +42,7 @@ namespace ImreCV.Controllers
         // GET: Languages/Create
         public ActionResult Create()
         {
-            ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname");
+            //ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname");
             return View();
         }
 
@@ -53,12 +55,12 @@ namespace ImreCV.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Languages.Add(language);
-                db.SaveChanges();
+                _languageRepository.Add(language);
+                _languageRepository.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", language.PersonId);
+            //ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", language.PersonId);
             return View(language);
         }
 
@@ -69,12 +71,12 @@ namespace ImreCV.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Language language = db.Languages.Find(id);
+            Language language = _languageRepository.GetById(id);
             if (language == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", language.PersonId);
+            //ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", language.PersonId);
             return View(language);
         }
 
@@ -87,11 +89,11 @@ namespace ImreCV.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(language).State = EntityState.Modified;
-                db.SaveChanges();
+                _languageRepository.Update(language);
+                _languageRepository.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", language.PersonId);
+            //ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", language.PersonId);
             return View(language);
         }
 
@@ -102,7 +104,7 @@ namespace ImreCV.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Language language = db.Languages.Find(id);
+            Language language = _languageRepository.GetById(id);
             if (language == null)
             {
                 return HttpNotFound();
@@ -115,9 +117,9 @@ namespace ImreCV.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Language language = db.Languages.Find(id);
-            db.Languages.Remove(language);
-            db.SaveChanges();
+            Language language = _languageRepository.GetById(id);
+            _languageRepository.Delete(language);
+            _languageRepository.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -125,7 +127,7 @@ namespace ImreCV.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _languageRepository.Dispose();
             }
             base.Dispose(disposing);
         }

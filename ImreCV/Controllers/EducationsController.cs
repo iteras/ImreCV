@@ -42,7 +42,7 @@ namespace ImreCV.Controllers
         // GET: Educations/Create
         public ActionResult Create()
         {
-            ViewBag.PersonId = new SelectList(db.People, "PersonId", "Firstname");
+            //ViewBag.PersonId = new SelectList(db.People, "PersonId", "Firstname");
             return View();
         }
 
@@ -60,7 +60,7 @@ namespace ImreCV.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.PersonId = new SelectList(db.People, "PersonId", "Firstname", education.PersonId);
+            //ViewBag.PersonId = new SelectList(db.People, "PersonId", "Firstname", education.PersonId);
             return View(education);
         }
 
@@ -71,12 +71,12 @@ namespace ImreCV.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Education education = db.Educations.Find(id);
+            Education education = _educationRepository.GetById(id);
             if (education == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", education.PersonId);
+           // ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", education.PersonId);
             return View(education);
         }
 
@@ -89,11 +89,11 @@ namespace ImreCV.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(education).State = EntityState.Modified;
-                db.SaveChanges();
+                _educationRepository.Update(education);
+                _educationRepository.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", education.PersonId);
+            //ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", education.PersonId);
             return View(education);
         }
 
@@ -104,7 +104,7 @@ namespace ImreCV.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Education education = db.Educations.Find(id);
+            Education education = _educationRepository.GetById(id);
             if (education == null)
             {
                 return HttpNotFound();
@@ -117,9 +117,9 @@ namespace ImreCV.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Education education = db.Educations.Find(id);
-            db.Educations.Remove(education);
-            db.SaveChanges();
+            Education education = _educationRepository.GetById(id);
+            _educationRepository.Delete(education);
+            _educationRepository.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -127,7 +127,7 @@ namespace ImreCV.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _educationRepository.Dispose();
             }
             base.Dispose(disposing);
         }
