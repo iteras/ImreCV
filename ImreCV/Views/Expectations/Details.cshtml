@@ -1,0 +1,58 @@
+﻿@model Domain.Expectation
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Expectation</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Person.Firstname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Person.Firstname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PreferedJob)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PreferedJob)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DesiredJob)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DesiredJob)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DesiredJobTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DesiredJobTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Location)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Location)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ExpectationId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Domain.Expectation>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Person.Firstname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PreferedJob)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DesiredJob)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DesiredJobTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Location)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Person.Firstname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PreferedJob)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DesiredJob)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DesiredJobTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Location)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ExpectationId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ExpectationId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ExpectationId })
+        </td>
+    </tr>
+}
+
+</table>

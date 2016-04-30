@@ -1,0 +1,72 @@
+﻿@model Domain.Language
+
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>Language</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Person.Firstname)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Person.Firstname)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Communication)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Communication)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Presentation)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Presentation)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Reading)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Reading)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Listening)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Listening)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Writing)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Writing)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.LanguageId }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>
