@@ -23,11 +23,13 @@ namespace Domain
         [Display(Name = "School name")]
         public string SchoolName { get; set; }
 
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
         public DateTime From { get; set; }
 
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
         public DateTime Until { get; set; }
+
+
         public string Information { get; set; }
 
        

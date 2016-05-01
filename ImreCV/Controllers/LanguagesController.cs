@@ -17,6 +17,8 @@ namespace ImreCV.Controllers
     {
         //private DataBaseContext db = new DataBaseContext();
         private readonly ILanguageRepository _languageRepository = new LanguageRepository(new DataBaseContext());
+        private readonly IPersonRepository _personRepository = new PersonRepository(new DataBaseContext());
+
         // GET: Languages
         public ActionResult Index()
         {
@@ -42,7 +44,7 @@ namespace ImreCV.Controllers
         // GET: Languages/Create
         public ActionResult Create()
         {
-            //ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname");
+            ViewBag.PersonId = new SelectList(_personRepository.All, "PersonId", "Firstname");
             return View();
         }
 
@@ -60,7 +62,7 @@ namespace ImreCV.Controllers
                 return RedirectToAction("Index");
             }
 
-            //ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", language.PersonId);
+            ViewBag.PersonId = new SelectList(_personRepository.All, "PersonId", "Firstname", language.PersonId);
             return View(language);
         }
 
@@ -76,7 +78,7 @@ namespace ImreCV.Controllers
             {
                 return HttpNotFound();
             }
-            //ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", language.PersonId);
+            ViewBag.PersonId = new SelectList(_personRepository.All, "PersonId", "Firstname", language.PersonId);
             return View(language);
         }
 
@@ -93,7 +95,7 @@ namespace ImreCV.Controllers
                 _languageRepository.SaveChanges();
                 return RedirectToAction("Index");
             }
-            //ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", language.PersonId);
+            ViewBag.PersonId = new SelectList(_personRepository.All, "PersonId", "Firstname", language.PersonId);
             return View(language);
         }
 

@@ -17,6 +17,9 @@ namespace ImreCV.Controllers
     {
         //private DataBaseContext db = new DataBaseContext();
         private readonly IExpectationRepository _expectationRepository = new ExpectationRepository(new DataBaseContext());
+        private readonly IPersonRepository _personRepository = new PersonRepository(new DataBaseContext());
+
+
         // GET: Expectations
         public ActionResult Index()
         {
@@ -42,7 +45,7 @@ namespace ImreCV.Controllers
         // GET: Expectations/Create
         public ActionResult Create()
         {
-            //ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname");
+            ViewBag.PersonId = new SelectList(_personRepository.All, "PersonId", "Firstname");
             return View();
         }
 
@@ -60,7 +63,7 @@ namespace ImreCV.Controllers
                 return RedirectToAction("Index");
             }
 
-           // ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", expectation.PersonId);
+            ViewBag.PersonId = new SelectList(_personRepository.All, "PersonId", "Firstname", expectation.PersonId);
             return View(expectation);
         }
 
@@ -76,7 +79,7 @@ namespace ImreCV.Controllers
             {
                 return HttpNotFound();
             }
-            //ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", expectation.PersonId);
+            ViewBag.PersonId = new SelectList(_personRepository.All, "PersonId", "Firstname", expectation.PersonId);
             return View(expectation);
         }
 
@@ -93,7 +96,7 @@ namespace ImreCV.Controllers
                 _expectationRepository.SaveChanges();
                 return RedirectToAction("Index");
             }
-            //ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", expectation.PersonId);
+            ViewBag.PersonId = new SelectList(_personRepository.All, "PersonId", "Firstname", expectation.PersonId);
             return View(expectation);
         }
 

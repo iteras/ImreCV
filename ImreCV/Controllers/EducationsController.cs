@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using DAL;
 using DAL.Interfaces;
 using DAL.Repositories;
@@ -17,6 +18,7 @@ namespace ImreCV.Controllers
     {
         //  private DataBaseContext db = new DataBaseContext();
         private readonly IEducationRepository _educationRepository = new EducationRepository(new DataBaseContext());
+        private readonly IPersonRepository _personRepository = new PersonRepository(new DataBaseContext());
         // GET: Educations
         public ActionResult Index()
         {
@@ -42,7 +44,9 @@ namespace ImreCV.Controllers
         // GET: Educations/Create
         public ActionResult Create()
         {
-            //ViewBag.PersonId = new SelectList(db.People, "PersonId", "Firstname");
+            ViewBag.PersonId = new SelectList(_personRepository.All, "PersonId", "Firstname");
+            // DropDownList DropDownList = new SelectedList(_educationRepository.All, nameof(Person.PersonId)), nameof(Person.Firstname)
+
             return View();
         }
 
@@ -60,7 +64,7 @@ namespace ImreCV.Controllers
                 return RedirectToAction("Index");
             }
 
-            //ViewBag.PersonId = new SelectList(db.People, "PersonId", "Firstname", education.PersonId);
+            ViewBag.PersonId = new SelectList(_personRepository.All, "PersonId", "Firstname", education.PersonId);
             return View(education);
         }
 
@@ -76,7 +80,7 @@ namespace ImreCV.Controllers
             {
                 return HttpNotFound();
             }
-           // ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", education.PersonId);
+            ViewBag.PersonId = new SelectList(_personRepository.All, "PersonId", "Firstname", education.PersonId);
             return View(education);
         }
 
@@ -93,7 +97,7 @@ namespace ImreCV.Controllers
                 _educationRepository.SaveChanges();
                 return RedirectToAction("Index");
             }
-            //ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", education.PersonId);
+            ViewBag.PersonId = new SelectList(_personRepository.All, "PersonId", "Firstname", education.PersonId);
             return View(education);
         }
 

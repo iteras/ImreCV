@@ -19,6 +19,7 @@ namespace Domain
         public string Lastname { get; set; }
         
         public int Age { get; set; }
+
         [DataType(DataType.Date)]
         public DateTime BirthDate { get; set; }
 

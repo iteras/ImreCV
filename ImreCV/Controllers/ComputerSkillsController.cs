@@ -17,6 +17,9 @@ namespace ImreCV.Controllers
     {
         //private DataBaseContext db = new DataBaseContext();
         private readonly IComputerSkillRepository _computerSkill = new ComputerSkillRepository(new DataBaseContext());
+        private readonly IPersonRepository _personRepository = new PersonRepository(new DataBaseContext());
+
+
         // GET: ComputerSkills
         public ActionResult Index()
         {
@@ -42,7 +45,7 @@ namespace ImreCV.Controllers
         // GET: ComputerSkills/Create
         public ActionResult Create()
         {
-            //ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname");
+            ViewBag.PersonId = new SelectList(_personRepository.All, "PersonId", "Firstname" );
             return View();
         }
 
@@ -60,7 +63,7 @@ namespace ImreCV.Controllers
                 return RedirectToAction("Index");
             }
 
-            //ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", computerSkill.PersonId);
+            ViewBag.PersonId = new SelectList(_personRepository.All, "PersonId", "Firstname", computerSkill.PersonId);
             return View(computerSkill);
         }
 
@@ -76,7 +79,7 @@ namespace ImreCV.Controllers
             {
                 return HttpNotFound();
             }
-            //ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", computerSkill.PersonId);
+            ViewBag.PersonId = new SelectList(_personRepository.All, "PersonId", "Firstname", computerSkill.PersonId);
             return View(computerSkill);
         }
 
@@ -93,7 +96,7 @@ namespace ImreCV.Controllers
                 _computerSkill.SaveChanges();
                 return RedirectToAction("Index");
             }
-            //ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", computerSkill.PersonId);
+            ViewBag.PersonId = new SelectList(_personRepository.All, "PersonId", "Firstname", computerSkill.PersonId);
             return View(computerSkill);
         }
 

@@ -17,6 +17,9 @@ namespace ImreCV.Controllers
     {
         //private DataBaseContext db = new DataBaseContext();
         private readonly IJobRepository _jobRepository = new JobRepository(new DataBaseContext());
+        private readonly IPersonRepository _personRepository = new PersonRepository(new DataBaseContext());
+
+
         // GET: Jobs
         public ActionResult Index()
         {
@@ -42,7 +45,7 @@ namespace ImreCV.Controllers
         // GET: Jobs/Create
         public ActionResult Create()
         {
-            //ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname");
+            ViewBag.PersonId = new SelectList(_personRepository.All, "PersonId", "Firstname");
             return View();
         }
 
@@ -60,7 +63,7 @@ namespace ImreCV.Controllers
                 return RedirectToAction("Index");
             }
 
-           // ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", job.PersonId);
+            ViewBag.PersonId = new SelectList(_personRepository.All, "PersonId", "Firstname", job.PersonId);
             return View(job);
         }
 
@@ -76,7 +79,7 @@ namespace ImreCV.Controllers
             {
                 return HttpNotFound();
             }
-            //ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", job.PersonId);
+            ViewBag.PersonId = new SelectList(_personRepository.All, "PersonId", "Firstname", job.PersonId);
             return View(job);
         }
 
@@ -93,7 +96,7 @@ namespace ImreCV.Controllers
                 _jobRepository.SaveChanges();
                 return RedirectToAction("Index");
             }
-            //ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", job.PersonId);
+            ViewBag.PersonId = new SelectList(_personRepository.All, "PersonId", "Firstname", job.PersonId);
             return View(job);
         }
 

@@ -17,6 +17,9 @@ namespace ImreCV.Controllers
     {
         //private DataBaseContext db = new DataBaseContext();
         private readonly IPersonAttributeRepository _personAttributeRepository = new PersonAttributeRepository(new DataBaseContext());
+        private readonly IPersonRepository _personRepository = new PersonRepository(new DataBaseContext());
+
+
         // GET: PersonAttributes
         public ActionResult Index()
         {
@@ -42,7 +45,7 @@ namespace ImreCV.Controllers
         // GET: PersonAttributes/Create
         public ActionResult Create()
         {
-            //ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname");
+            ViewBag.PersonId = new SelectList(_personRepository.All, "PersonId", "Firstname");
             return View();
         }
 
@@ -60,7 +63,7 @@ namespace ImreCV.Controllers
                 return RedirectToAction("Index");
             }
 
-            //ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", personAttribute.PersonId);
+            ViewBag.PersonId = new SelectList(_personRepository.All, "PersonId", "Firstname", personAttribute.PersonId);
             return View(personAttribute);
         }
 
@@ -76,7 +79,7 @@ namespace ImreCV.Controllers
             {
                 return HttpNotFound();
             }
-            //ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", personAttribute.PersonId);
+            ViewBag.PersonId = new SelectList(_personRepository.All, "PersonId", "Firstname", personAttribute.PersonId);
             return View(personAttribute);
         }
 
@@ -93,7 +96,7 @@ namespace ImreCV.Controllers
                 _personAttributeRepository.SaveChanges();
                 return RedirectToAction("Index");
             }
-            //ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", personAttribute.PersonId);
+            ViewBag.PersonId = new SelectList(_personRepository.All, "PersonId", "Firstname", personAttribute.PersonId);
             return View(personAttribute);
         }
 
