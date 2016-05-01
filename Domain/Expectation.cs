@@ -18,16 +18,21 @@ namespace Domain
         public int PersonId { get; set; }
         public virtual Person Person { get; set; }
 
-
-        [Display(Name = "Prefered job")]
+        [MaxLength(100)]
+        [Display(Name = "Esimene eelistatud töökoht")]
         public string PreferedJob { get; set; }
-        [Display(Name = "Desired job")]
+
+        [MaxLength(1024)]
+        [Display(Name = "Soovitud ametid")]
         public string  DesiredJob { get; set; }
 
-        [Display(Name = "Desired job time")]
+        [MaxLength(1024)]
+        [Display(Name = "Soovitud tööaeg")]
         public string DesiredJobTime { get; set; }
 
-        [Display(Name = "Location")]
+
+        [MaxLength(100)]
+        [Display(Name = "Asukoht")]
         public string Location { get; set; }
 
         

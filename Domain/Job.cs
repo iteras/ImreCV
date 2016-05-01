@@ -18,20 +18,31 @@ namespace Domain
         public int PersonId { get; set; }
         public virtual Person Person { get; set; }
 
+        [MaxLength(100)]
+        [Display(Name = "Firma/asutus")]
         public string Company { get; set; }
-        [Display(Name = "Job name")]
+
+        [MaxLength(100)]
+        [Display(Name = "Ametinimi")]
         public string JobName { get; set; }
 
+        [Display(Name = "Alates")]
         [DataType(DataType.Date)]
         public DateTime From { get; set; }
+
+        [Display(Name = "Kuni")]
         [DataType(DataType.Date)]
         public DateTime Until { get; set; }
 
+        [Display(Name = "Veel töötan siiani selles asutuses")]
         public Boolean StillWorking { get; set; }
 
-        [Display(Name = "Job's explanation")]
+        [MaxLength(1024)]
+        [Display(Name = "Töökirjeldus")]
         public string JobExplanation { get; set; }
-        [Display(Name = "Purpose of leaving the job")]
+
+        [MaxLength(200)]
+        [Display(Name = "Lahkumise põhjus")]
         public string PurposeOfLeaving { get; set; }
 
        

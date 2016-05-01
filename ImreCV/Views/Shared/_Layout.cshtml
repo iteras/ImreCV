@@ -18,31 +18,31 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("CV - Imre Teras", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("CVs", "CVModel", "Home" )</li>
+                    <li>@Html.ActionLink("Koduleht", "Index", "Home")</li>
+                    <li>@Html.ActionLink("CV'd", "CVModel", "Home" )</li>
                     @*<li>@Html.ActionLink("About", "About", "Home")</li>
     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 *@
 
                     <li class="dropdown">
-                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">CV creation <b class="caret"></b></a>
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">CV loomine <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("People", "Index", "Persons")</li>
-                            <li>@Html.ActionLink("Computer Skills", "Index", "ComputerSkills")</li>
-                            <li>@Html.ActionLink("Educations", "Index", "Educations")</li>
-                            <li>@Html.ActionLink("Expectations", "Index", "Expectations")</li>
-                            <li>@Html.ActionLink("Jobs", "Index", "Jobs")</li>
-                            <li>@Html.ActionLink("Languages", "Index", "Languages")</li>
-                            <li>@Html.ActionLink("PersonAttributes", "Index", "PersonAttributes")</li>
+                            <li>@Html.ActionLink("Inimesed", "Index", "Persons")</li>
+                            <li>@Html.ActionLink("Arvutioskused", "Index", "ComputerSkills")</li>
+                            <li>@Html.ActionLink("Haridus", "Index", "Educations")</li>
+                            <li>@Html.ActionLink("Ootused tulevasele tööle", "Index", "Expectations")</li>
+                            <li>@Html.ActionLink("Töökogemus", "Index", "Jobs")</li>
+                            <li>@Html.ActionLink("Keelteoskus", "Index", "Languages")</li>
+                            <li>@Html.ActionLink("Isikuomadused", "Index", "PersonAttributes")</li>
                         </ul>
                     </li>
                     
                 </ul>
-                @Html.Partial("_LoginPartial")
+               @*@Html.Partial("_LoginPartial")*@
             </div>
         </div>
     </div>

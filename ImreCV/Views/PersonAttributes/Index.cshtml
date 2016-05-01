@@ -6,33 +6,36 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
+    <title>Isikuomadused</title>
+    
 </head>
 <body>
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Person.Firstname)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Personality)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StrongSides)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TouchNeedingSides)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Interrest)
-            </th>
-            <th></th>
-        </tr>
-    
-    @foreach (var item in Model) {
+    <H2>Isikuomadused</H2>
+<p>
+    @Html.ActionLink("Loo uus", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Person.Firstname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Personality)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StrongSides)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TouchNeedingSides)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Interrest)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Person.Firstname)
@@ -50,13 +53,13 @@
                 @Html.DisplayFor(modelItem => item.Interrest)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.PersonAttributeId }) |
-                @Html.ActionLink("Details", "Details", new { id=item.PersonAttributeId }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.PersonAttributeId })
+                @Html.ActionLink("Edit", "Edit", new {id = item.PersonAttributeId}) |
+                @Html.ActionLink("Details", "Details", new {id = item.PersonAttributeId}) |
+                @Html.ActionLink("Delete", "Delete", new {id = item.PersonAttributeId})
             </td>
         </tr>
     }
-    
-    </table>
+
+</table>
 </body>
 </html>

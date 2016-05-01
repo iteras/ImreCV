@@ -14,12 +14,31 @@ namespace Domain
         [Key]
         public int LanguageId { get; set; }
 
+        [Required]
+        [Display(Name = "Keel")]
+        [MaxLength(32)]
         public string Name { get; set; }
+        [Required]
+        [Display(Name = "Suhtlemine")]
+        [MaxLength(20)]
         public string Communication { get; set; }
+        [Required]
+        [Display(Name = "Esitlemine")]
+        [MaxLength(20)]
         public string Presentation { get; set; }
+        [Required]
+        [Display(Name = "Lugemine")]
+        [MaxLength(20)]
         public string Reading { get; set; }
+        [Required]
+        [Display(Name = "Kuulamine")]
+        [MaxLength(20)]
         public string Listening  { get; set; }
+        [Required]
+        [Display(Name = "Kirjutamine")]
+        [MaxLength(20)]
         public string Writing { get; set; }
+        
 
         [ForeignKey(nameof(Person))]
         public int PersonId { get; set; }

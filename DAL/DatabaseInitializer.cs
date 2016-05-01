@@ -32,7 +32,7 @@ namespace DAL
                     Address = "Pirni 4",
                     Email = "imreteras@gmail.com",
                     TelNr = "53012313",
-                    EducationLevel = "GCSE",
+                    EducationLevel = "Keskharidus",
                     Story = "Õpin hetkel 2. aasat IT Kolledžis ja sooviksin leida erialast tööd," +
                     "st mingit infothehnoloogiaga seotud eriala, nt veebiarendus, java arendus, .NET jne, " +
                     "või mingeid muid IT'ga seonduvaid erialasid. Meeldib õppida uusi ja erinevaid IT valdkondi. " +

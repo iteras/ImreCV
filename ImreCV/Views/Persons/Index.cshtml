@@ -7,45 +7,48 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
+    <title>Inimesed</title>
+    
 </head>
 <body>
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Firstname)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Lastname)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Age)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BirthDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Address)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TelNr)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EducationLevel)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Story)
-            </th>
-            <th></th>
-        </tr>
-    
-    @foreach (var item in Model) {
+    <H2>Keeled</H2>
+<p>
+    @Html.ActionLink("Loo uus", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Firstname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lastname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Age)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BirthDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TelNr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EducationLevel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Story)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Firstname)
@@ -75,13 +78,13 @@
                 @Html.DisplayFor(modelItem => item.Story)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.PersonId }) |
-                @Html.ActionLink("Details", "Details", new { id=item.PersonId }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.PersonId })
+                @Html.ActionLink("Edit", "Edit", new {id = item.PersonId}) |
+                @Html.ActionLink("Details", "Details", new {id = item.PersonId}) |
+                @Html.ActionLink("Delete", "Delete", new {id = item.PersonId})
             </td>
         </tr>
     }
-    
-    </table>
+
+</table>
 </body>
 </html>

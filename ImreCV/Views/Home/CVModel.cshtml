@@ -1,49 +1,47 @@
 ﻿@model ImreCV.ViewModels.CVModel
 
 @{
-    ViewBag.Title = "CVs";
+    ViewBag.Title = "CV'd";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>CVs</h2>
-<H3>
-    @ViewBag.PersonTitle
-</H3>
+<h2>@ViewBag.Title</h2>
 
-    
+
+
 
     @foreach (var item in Model.AllPersons)
     {
+        <H3>@item.Firstname @item.Lastname</H3>
         <table class="table table-reflow">
             <tr class ="table-head">
                 <th>
-                    Name
+                    Nimi
                 </th>
                 <th>
-                    Gender
+                    Sugu
                 </th>
                 <th>
-                    Birth date
+                    Sünnikuupäev
                 </th>
                 <th>
-                    Age
+                    Vanus
                 </th>
                 <th>
-                    Address
+                    Aadress
                 </th>
                 <th>
-                    Email
+                    E-mail
                 </th>
                 <th>
-                    Telephone nr
+                    Mobiili nr
                 </th>
                 <th>
-                    Education level
+                    Haridus
                 </th>
-                <th>Story</th>
+                <th>Tutvustus ja eesmärgid</th>
             </tr>
             <tr>
-                @ViewBag.PersonTitle = @item.Firstname @item.Lastname
                 <th>@item.Firstname @item.Lastname</th>
                 <th>@item.Gender</th>
                 <th>@item.BirthDate</th>
@@ -58,22 +56,28 @@
 
 
             <table class="table">
-                <tr class ="table-head">
-                    <th>School name</th>
-                    <th>Name</th>
-                    <th>From</th>
-                    <th>Until</th>
-                    <th>Information</th>
+                <tr class="table-head">
+                    <th>Kooli nimi</th>
+                    <th>Nimi</th>
+                    <th>Alates</th>
+                    <th>Kuni</th>
+                    <th>Lisainformatsioon</th>
                 </tr>
+                
                 @foreach (var item1 in Model.Educations)
+
                 {
-                    <tr>
-                        <th>@item1.SchoolName</th>
-                        <th>@item1.Name</th>
-                        <th>@item1.From</th>
-                        <th>@item1.Until</th>
-                        <th>@item1.Information</th>
-                    </tr>
+                    if (@item.PersonId == @item1.PersonId)
+                    {
+                        <tr>
+                            <th>@item1.SchoolName</th>
+                            <th>@item1.Name</th>
+                            <th>@item1.From</th>
+                            <th>@item1.Until</th>
+                            <th>@item1.Information</th>
+                        </tr>
+                    }
+
                 }
 
             </table>
@@ -81,25 +85,29 @@
 
             <table class="table">
                 <tr class ="table-head">
-                    <th>Comany</th>
-                    <th>From</th>
-                    <th>Until</th>
-                    <th>Job name</th>
-                    <th>Job Explanation</th>
-                    <th>Still working</th>
-                    <th>Purpose of leaving</th>
+                    <th>Firma</th>
+                    <th>Alates</th>
+                    <th>Kuni</th>
+                    <th>Töö nimetus</th>
+                    <th>Töö selgitus</th>
+                    <th>Töötan veel</th>
+                    <th>Lahkumise põhjus</th>
                 </tr>
                 @foreach (var item2 in Model.Jobs)
                 {
-                    <tr>
-                        <th>@item2.Company</th>
-                        <th>@item2.From</th>
-                        <th>@item2.Until</th>
-                        <th>@item2.JobName</th>
-                        <th>@item2.JobExplanation</th>
-                        <th>@item2.StillWorking</th>
-                        <th>@item2.PurposeOfLeaving</th>
-                    </tr>
+                    if (@item.PersonId == @item2.PersonId)
+                    {
+                        <tr>
+                            <th>@item2.Company</th>
+                            <th>@item2.From</th>
+                            <th>@item2.Until</th>
+                            <th>@item2.JobName</th>
+                            <th>@item2.JobExplanation</th>
+                            <th>@item2.StillWorking</th>
+                            <th>@item2.PurposeOfLeaving</th>
+                        </tr>
+                    }
+
 
                 }
 
@@ -108,20 +116,24 @@
 
         <table class="table">
             <tr class ="table-head">
-                <th>Prefered job</th>
-                <th>Desired job</th>
-                <th>Desired job time</th>
-                <th>Location</th>
+                <th>Eelistatud töö</th>
+                <th>Soovitud ametid</th>
+                <th>Soovitud tööajad</th>
+                <th>Asukoht</th>
             </tr>
             
                 @foreach (var itemExpect in Model.Expectations)
                 {
-                    <tr>
-                        <th>@itemExpect.PreferedJob</th>
-                        <th>@itemExpect.DesiredJob</th>
-                        <th>@itemExpect.DesiredJobTime</th>
-                        <th>@itemExpect.Location</th>
-                    </tr>
+                    if (@item.PersonId == @itemExpect.PersonId)
+                    {
+                        <tr>
+                            <th>@itemExpect.PreferedJob</th>
+                            <th>@itemExpect.DesiredJob</th>
+                            <th>@itemExpect.DesiredJobTime</th>
+                            <th>@itemExpect.Location</th>
+                        </tr>
+                    }
+
                 }
                     
         </table>
@@ -129,57 +141,69 @@
         <table class="table">
             <tr class ="table-head">
                 <th>Name</th>
-                <th>Communication Level </th>
-                <th>Presentation Level</th>
-                <th>Reading Level</th>
-                <th>Listening level</th>
-                <th>Writing level</th>
+                <th>Suhtlemine  </th>
+                <th>Esitlemine</th>
+                <th>Lugemine</th>
+                <th>Kuulamine</th>
+                <th>Kirjutamine</th>
             </tr>
             @foreach (var itemLang in Model.Languages)
             {
-                <tr>
-                    <th>@itemLang.Name</th>
-                    <th>@itemLang.Communication</th>
-                    <th>@itemLang.Presentation</th>
-                    <th>@itemLang.Reading</th>
-                    <th>@itemLang.Listening</th>
-                    <th>@itemLang.Writing</th>
-                </tr>
+                if (@item.PersonId == @itemLang.PersonId)
+                {
+                    <tr>
+                        <th>@itemLang.Name</th>
+                        <th>@itemLang.Communication</th>
+                        <th>@itemLang.Presentation</th>
+                        <th>@itemLang.Reading</th>
+                        <th>@itemLang.Listening</th>
+                        <th>@itemLang.Writing</th>
+                    </tr>
+                }
+
             }
         </table>
 
         <table class="table">
             <tr class ="table-head">
-                <th>Newbie skills</th>
-                <th>Moderate skills</th>
-                <th>Specialist skills</th>
+                <th>Algaja</th>
+                <th>Keskmine tase</th>
+                <th>Spetsialist</th>
             </tr>
             @foreach (var item1 in Model.ComputerSkills)
             {
-                <tr>
-                    <th>@item1.NewbieSkills</th>
-                    <th>@item1.ModerateSkills</th>
-                    <th>@item1.SpecialistSkills</th>
-                </tr>
+                if (@item.PersonId == @item1.PersonId)
+                {
+                    <tr>
+                        <th>@item1.NewbieSkills</th>
+                        <th>@item1.ModerateSkills</th>
+                        <th>@item1.SpecialistSkills</th>
+                    </tr>
+                }
+
             }
         </table>
 
 
         <table class="table">
             <tr class ="table-head">
-                <th>Personality</th>
-                <th>Interrests</th>
-                <th>Strong sides</th>
-                <th>Touch needing sides</th>
+                <th>Isikuomadused</th>
+                <th>Huvid/hobid</th>
+                <th>Tugevad küljed</th>
+                <th>Arendamist vajavad küljed</th>
             </tr>
             @foreach (var item1 in Model.PersonAttributes)
             {
-                <tr>
-                    <th>@item1.Personality</th>
-                    <th>@item1.Interrest</th>
-                    <th>@item1.StrongSides</th>
-                    <th>@item1.TouchNeedingSides</th>
-                </tr>
+                if (@item.PersonId == @item1.PersonId)
+                {
+                    <tr>
+                        <th>@item1.Personality</th>
+                        <th>@item1.Interrest</th>
+                        <th>@item1.StrongSides</th>
+                        <th>@item1.TouchNeedingSides</th>
+                    </tr>
+                }
+
             }
         </table>
 

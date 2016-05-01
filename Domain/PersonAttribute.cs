@@ -17,12 +17,20 @@ namespace Domain
         public int PersonId { get; set; }
         public virtual Person Person { get; set; }
 
+        [MaxLength(160)]
+        [Display(Name = "Isikuomadused")]
         public string Personality { get; set; }
-        [Display(Name = "Strong sides of you")]
+
+        [MaxLength(160)]
+        [Display(Name = "Tugevad küljed")]
         public string StrongSides { get; set; }
 
-        [Display(Name = "Touch needing sides")]
+        [MaxLength(160)]
+        [Display(Name = "Arendamist vajavad küljed")]
         public string TouchNeedingSides { get; set; }
+
+        [MaxLength(160)]
+        [Display(Name = "Huvid")]
         public string Interrest { get; set; }
 
         

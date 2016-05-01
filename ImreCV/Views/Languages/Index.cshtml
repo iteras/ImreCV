@@ -7,39 +7,42 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
+    <title>Keeled</title>
+    
 </head>
 <body>
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Person.Firstname)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Communication)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Presentation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Reading)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Listening)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Writing)
-            </th>
-            <th></th>
-        </tr>
-    
-    @foreach (var item in Model) {
+    <H2>Keeled</H2>
+<p>
+    @Html.ActionLink("Loo uus", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Person.Firstname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Communication)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Presentation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Reading)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Listening)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Writing)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Person.Firstname)
@@ -63,13 +66,13 @@
                 @Html.DisplayFor(modelItem => item.Writing)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.LanguageId }) |
-                @Html.ActionLink("Details", "Details", new { id=item.LanguageId }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.LanguageId })
+                @Html.ActionLink("Edit", "Edit", new {id = item.LanguageId}) |
+                @Html.ActionLink("Details", "Details", new {id = item.LanguageId}) |
+                @Html.ActionLink("Delete", "Delete", new {id = item.LanguageId})
             </td>
         </tr>
     }
-    
-    </table>
+
+</table>
 </body>
 </html>

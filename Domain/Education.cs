@@ -18,18 +18,25 @@ namespace Domain
         public int PersonId { get; set; }
         public virtual Person Person { get; set; }
 
+        [Required]
+        [Display(Name = "Hariduse nimetus")]
         public string Name { get; set; }
 
-        [Display(Name = "School name")]
+        [Required]
+        [Display(Name = "Kooli nimi")]
         public string SchoolName { get; set; }
 
+        [Required]
+        [Display(Name = "Alates")]
         [DataType(DataType.Date)]
         public DateTime From { get; set; }
 
+        [Display(Name = "Kuni")]
         [DataType(DataType.Date)]
         public DateTime Until { get; set; }
 
-
+        [Display(Name = "Lisainformatsioon")]
+        [MaxLength(1024)]
         public string Information { get; set; }
 
        
