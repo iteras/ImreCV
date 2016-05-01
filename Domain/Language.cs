@@ -13,6 +13,8 @@ namespace Domain
     {
         [Key]
         public int LanguageId { get; set; }
+
+        public string Name { get; set; }
         public string Communication { get; set; }
         public string Presentation { get; set; }
         public string Reading { get; set; }

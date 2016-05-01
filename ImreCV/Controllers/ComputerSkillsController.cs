@@ -7,19 +7,21 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DAL;
+using DAL.Interfaces;
+using DAL.Repositories;
 using Domain;
 
 namespace ImreCV.Controllers
 {
     public class ComputerSkillsController : Controller
     {
-        private DataBaseContext db = new DataBaseContext();
-
+        //private DataBaseContext db = new DataBaseContext();
+        private readonly IComputerSkillRepository _computerSkill = new ComputerSkillRepository(new DataBaseContext());
         // GET: ComputerSkills
         public ActionResult Index()
         {
-            var computerSkills = db.ComputerSkills.Include(c => c.Person);
-            return View(computerSkills.ToList());
+            //var computerSkills = db.ComputerSkills.Include(c => c.Person);
+            return View(_computerSkill.All);
         }
 
         // GET: ComputerSkills/Details/5
@@ -29,7 +31,7 @@ namespace ImreCV.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ComputerSkill computerSkill = db.ComputerSkills.Find(id);
+            ComputerSkill computerSkill = _computerSkill.GetById(id);
             if (computerSkill == null)
             {
                 return HttpNotFound();
@@ -40,7 +42,7 @@ namespace ImreCV.Controllers
         // GET: ComputerSkills/Create
         public ActionResult Create()
         {
-            ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname");
+            //ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname");
             return View();
         }
 
@@ -53,12 +55,12 @@ namespace ImreCV.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.ComputerSkills.Add(computerSkill);
-                db.SaveChanges();
+                _computerSkill.Add(computerSkill);
+                _computerSkill.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", computerSkill.PersonId);
+            //ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", computerSkill.PersonId);
             return View(computerSkill);
         }
 
@@ -69,12 +71,12 @@ namespace ImreCV.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ComputerSkill computerSkill = db.ComputerSkills.Find(id);
+            ComputerSkill computerSkill = _computerSkill.GetById(id);
             if (computerSkill == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", computerSkill.PersonId);
+            //ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", computerSkill.PersonId);
             return View(computerSkill);
         }
 
@@ -87,11 +89,11 @@ namespace ImreCV.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(computerSkill).State = EntityState.Modified;
-                db.SaveChanges();
+                _computerSkill.Update(computerSkill);
+                _computerSkill.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", computerSkill.PersonId);
+            //ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Firstname", computerSkill.PersonId);
             return View(computerSkill);
         }
 
@@ -102,7 +104,7 @@ namespace ImreCV.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ComputerSkill computerSkill = db.ComputerSkills.Find(id);
+            ComputerSkill computerSkill = _computerSkill.GetById(id);
             if (computerSkill == null)
             {
                 return HttpNotFound();
@@ -115,9 +117,9 @@ namespace ImreCV.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            ComputerSkill computerSkill = db.ComputerSkills.Find(id);
-            db.ComputerSkills.Remove(computerSkill);
-            db.SaveChanges();
+            ComputerSkill computerSkill = _computerSkill.GetById(id);
+            _computerSkill.Delete(computerSkill);
+            _computerSkill.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -125,7 +127,7 @@ namespace ImreCV.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _computerSkill.Dispose();
             }
             base.Dispose(disposing);
         }

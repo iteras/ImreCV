@@ -51,7 +51,7 @@ namespace ImreCV.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "LanguageId,Communication,Presentation,Reading,Listening,Writing,PersonId")] Language language)
+        public ActionResult Create([Bind(Include = "LanguageId,Name,Communication,Presentation,Reading,Listening,Writing,PersonId")] Language language)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +85,7 @@ namespace ImreCV.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "LanguageId,Communication,Presentation,Reading,Listening,Writing,PersonId")] Language language)
+        public ActionResult Edit([Bind(Include = "LanguageId,Name,Communication,Presentation,Reading,Listening,Writing,PersonId")] Language language)
         {
             if (ModelState.IsValid)
             {
